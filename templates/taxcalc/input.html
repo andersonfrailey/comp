@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<form class="inputs-form" method="post" action="/taxcalc/" enctype="multipart/form-data">
+  {% csrf_token %}
+  <div class="inputs-block-header">
+    <h1>Tax-Calculator Project</a></h1>
+    {% if not can_run %}
+    {% include 'core/perm.html' %}
+    {% block perm %}
+    {% endblock %}
+    {% endif %}
+  </div>
+  {{ form.as_table }}
+  <div class="sidebar-button">
+    <a href="#" ></a>
+    <input id="submit" class="btn btn-secondary btn-block btn-animate" type="submit" name="full_calc" value="Show me the results!">
+  </div>
+
+</form>
+{% endblock %}

@@ -31,6 +31,8 @@ ALLOWED_HOSTS = ['*']
 SECURE_SSL_REDIRECT = False if os.environ.get('LOCAL', '') else True
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
+DATA_UPLOAD_MAX_NUMBER_FIELDS = 3000
+
 # Application definition
 
 INSTALLED_APPS = [
@@ -46,6 +48,7 @@ INSTALLED_APPS = [
     'webapp.apps.upload',
     'webapp.apps.users',
     'webapp.apps.billing',
+    'webapp.apps.taxcalc'
 
     # 'allauth', # new
     # 'allauth.account', # new

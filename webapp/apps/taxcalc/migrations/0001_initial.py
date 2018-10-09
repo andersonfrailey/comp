@@ -19,7 +19,7 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.CreateModel(
-            name='FileInput',
+            name='TaxcalcInput',
             fields=[
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('raw_gui_field_inputs', django.contrib.postgres.fields.jsonb.JSONField(blank=True, default=None, null=True)),
@@ -35,7 +35,7 @@ class Migration(migrations.Migration):
             },
         ),
         migrations.CreateModel(
-            name='FileOutput',
+            name='TaxcalcOutput',
             fields=[
                 ('outputs', django.contrib.postgres.fields.jsonb.JSONField(blank=True, default=None, null=True)),
                 ('aggr_outputs', django.contrib.postgres.fields.jsonb.JSONField(blank=True, default=None, null=True)),
@@ -48,7 +48,7 @@ class Migration(migrations.Migration):
                 ('job_id', models.UUIDField(blank=True, default=None, null=True)),
                 ('upstream_vers', models.CharField(blank=True, default=None, max_length=50, null=True)),
                 ('webapp_vers', models.CharField(blank=True, default=None, max_length=50, null=True)),
-                ('inputs', models.OneToOneField(on_delete=django.db.models.deletion.PROTECT, related_name='outputs', to='upload.FileInput')),
+                ('inputs', models.OneToOneField(on_delete=django.db.models.deletion.PROTECT, related_name='outputs', to='taxcalc.TaxcalcInput')),
             ],
             options={
                 'abstract': False,

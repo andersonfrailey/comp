@@ -11,7 +11,25 @@
     {% endblock %}
     {% endif %}
   </div>
-  {{ form.as_table }}
+  {{ form.non_field_errors }}
+
+  {% for hidden_field in form.hidden_fields %}
+    {{ hidden_field.errors }}
+    {{ hidden_field }}
+  {% endfor %}
+
+  <table border="1">
+    {% for field in form.visible_fields %}
+      <tr>
+        <th>{{ field.label_tag }}</th>
+        <td>
+          {{ field.errors }}
+          {{ field }}
+          {{ field.help_text }}
+        </td>
+      </tr>
+    {% endfor %}
+  </table>
   <div class="sidebar-button">
     <a href="#" ></a>
     <input id="submit" class="btn btn-secondary btn-block btn-animate" type="submit" name="full_calc" value="Show me the results!">

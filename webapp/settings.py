@@ -50,6 +50,8 @@ INSTALLED_APPS = [
     'webapp.apps.billing',
     'webapp.apps.taxcalc'
 
+    'widget_tweaks',
+
     # 'allauth', # new
     # 'allauth.account', # new
     # 'allauth.socialaccount', # new
@@ -128,6 +130,7 @@ SITE_ID = 1
 # Login routing
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/'
+LOGIN_URL = '/users/login/'
 
 # For custom user class
 AUTH_USER_MODEL = 'users.User'

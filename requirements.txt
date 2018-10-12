@@ -1,4 +1,4 @@
-django==2.1
+django>=2.1.2
 msgpack
 requests
 requests_mock
@@ -10,3 +10,4 @@ gunicorn
 stripe
 sendgrid-django
 pytest
+django_widget_tweaks

@@ -10,20 +10,13 @@ from webapp.apps.core.models import Tag, TagOption
 from webapp.apps.core.views import CoreRunDetailView, CoreRunDownloadView
 from webapp.apps.core.compute import Compute, WorkersUnreachableError
 
-from webapp.apps.users.models import Project
+from webapp.apps.users.models import Project, is_profile_active
 
 from .models import TaxcalcInput, TaxcalcOutput
-from .forms import TaxcalcForm
+from .forms import TaxcalcForm, dim_order, dim_ranges
 
 # necessary for mocking out Compute class in tests
 Compute = Compute
-
-
-def has_public_access(user):
-    if hasattr(user, 'profile') and user.profile is not None:
-        return user.profile.public_access
-    else:
-        return False
 
 
 class TaxcalcView(View):
@@ -36,7 +29,7 @@ class TaxcalcView(View):
     def get(self, request, *args, **kwargs):
         project = Project.objects.get(name=self.name)
         user = request.user
-        can_run = user.is_authenticated and has_public_access(user)
+        can_run = user.is_authenticated and is_profile_active(user)
         rate = round(project.server_cost, 2)
         avg_job_cost = self.avg_job_cost(project)
 
@@ -46,11 +39,13 @@ class TaxcalcView(View):
                                'redirect_back': 'taxcalc',
                                'can_run': can_run,
                                'avg_job_cost': f'${avg_job_cost}',
-                               'form': TaxcalcForm()})
+                               'form': TaxcalcForm(),
+                               'dim_order': dim_order,
+                               'dim_range': dim_ranges})
 
-    @method_decorator(login_required(login_url='/users/login/'))
+    @method_decorator(login_required)
     @method_decorator( #TODO: redirect to update pmt info or re-subscribe
-        user_passes_test(has_public_access, login_url='/users/login/'))
+        user_passes_test(is_profile_active, login_url='/users/login/'))
     def post(self, request, *args, **kwargs):
         project = Project.objects.get(name=self.name)
         compute = Compute()

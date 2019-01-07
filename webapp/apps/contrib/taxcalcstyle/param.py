@@ -36,7 +36,7 @@ class TaxcalcStyleParam(BaseParam):
                 self.attributes["col_label"][dim1],
                 value[dim1],
                 self.coerce_func,
-                0,
+                1,
                 **field_kwargs
             )
             self.fields[field_name] = field.form_field

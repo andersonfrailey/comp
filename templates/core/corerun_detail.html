@@ -315,6 +315,10 @@ $(document).ready(function () {
     /* Deactivate child tags for unselected options */
     unselected.each(function (_index, el) {
       var children_keys = $(el).attr('data-children-keys').trim().split(" ");
+      console.log(children_keys);
+      console.log(parent_container.find($(children_keys.map(function (key) {
+          return ".tag-" + key;
+        }))));
       parent_container.find($(children_keys.map(function (key) {
           return ".tag-" + key;
         })))

@@ -15,6 +15,10 @@ from api.celery_app.compbaseball_tasks import (
     compbaseball_postprocess,
     compbaseball_task)
 
+from api.celery_app.taxbrain_tasks import (
+    taxbrain_postprocess,
+    taxbrain_task)
+
 
 bp = Blueprint('endpoints', __name__)
 
@@ -46,6 +50,11 @@ def aggr_endpoint(compute_task, postprocess_task):
 @bp.route("/compbaseball", methods=['POST'])
 def compbaseball_endpoint():
     return aggr_endpoint(compbaseball_task, compbaseball_postprocess)
+
+
+@bp.route("/taxbrain", methods=['POST'])
+def taxbrain_endpoint():
+    return aggr_endpoint(taxbrain_task, taxbrain_postprocess)
 
 
 @bp.route("/get_job", methods=['GET'])

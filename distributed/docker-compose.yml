@@ -9,6 +9,7 @@ services:
       # Add celery workers here:
       # - {project_name}_tasks
       - compbaseball_tasks
+      - taxbrain_tasks
   # configure celery workers:
   # {project_name}_tasks:
   #   image: "comp/{project_name}_tasks:${TAG}"
@@ -16,6 +17,10 @@ services:
   #     redis
   compbaseball_tasks:
     image: "comp/compbaseball_tasks:${TAG}"
+    depends_on:
+      - redis
+  taxbrain_tasks:
+    image: "comp/taxbrain_tasks:${TAG}"
     depends_on:
       - redis
   redis:

@@ -27,12 +27,10 @@ def dict_get(hash, key):
 
 @register.filter
 def is_truthy(val):
-    # print("checking val", val, type(val))
     if val is True:
         return True
     if val == "True":
         return True
-    # print("returning False")
     return False
 
 

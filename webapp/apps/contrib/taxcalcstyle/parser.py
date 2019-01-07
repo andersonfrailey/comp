@@ -11,44 +11,6 @@ from webapp.apps.core.utils import is_wildcard, is_reverse
 
 class TaxcalcStyleParser(Parser):
 
-    def parse_parameters(self):
-        """
-        Implement custom parameter parsing logic
-        """
-        params, _, _ = super().parse_parameters()
-        print(params)
-        policy_inputs = params["policy"]
-        behavior_inputs = params["behavior"]
-        policy_inputs = {"policy": policy_inputs}
-
-        policy_inputs_json = json.dumps(policy_inputs, indent=4)
-
-        assumption_inputs = {
-            "behavior": behavior_inputs,
-            "growdiff_response": {},
-            "consumption": {},
-            "growdiff_baseline": {},
-            "growmodel": {},
-        }
-
-        assumption_inputs_json = json.dumps(assumption_inputs, indent=4)
-
-        (
-            policy_dict,
-            assumptions_dict,
-            errors_warnings,
-        ) = self.check_revisions_for_errors(
-            policy_inputs_json,
-            assumption_inputs_json,
-        )
-        params = {"policy": policy_dict, **assumptions_dict}
-        jsonstrs = {"policy": policy_inputs, "assumptions": assumption_inputs}
-        return (
-            params,
-            jsonstrs,
-            errors_warnings,
-        )
-
     def unflatten(self, parsed_input):
         """
         Convert fields style dictionary to json reform style dictionary
@@ -110,38 +72,6 @@ class TaxcalcStyleParser(Parser):
 
         return revision
 
-    def check_revisions_for_errors(
-        self, policy_inputs_json, assumption_inputs_json
-    ):
-        """
-        Read reform and parse errors
-        returns reform and assumption dictionaries that are compatible with
-                taxcalc.Policy.implement_reform
-                parsed warning and error messsages to be displayed on input page
-                if necessary
-        """
-        policy_dict = taxcalc.Calculator.read_json_param_objects(
-            policy_inputs_json, assumption_inputs_json
-        )
-        # get errors and warnings on parameters that do not cause ValueErrors
-        tc_errors_warnings = taxcalc.tbi.reform_warnings_errors(
-            policy_dict, self.data_source
-        )
-        # errors_warnings contains warnings and errors separated by each
-        # project/project module
-        errors_warnings = {}
-        for project in tc_errors_warnings:
-            errors_warnings[project] = self.parse_errors_warnings(
-                tc_errors_warnings[project]
-            )
-
-        # separate reform and assumptions
-        reform_dict = policy_dict["policy"]
-        assumptions_dict = {
-            k: v for k, v in list(policy_dict.items()) if k != "policy"
-        }
-
-        return reform_dict, assumptions_dict, errors_warnings
 
     @staticmethod
     def get_default_param(param, defaults, param_get=None, raise_error=True):

@@ -23,6 +23,7 @@ urlpatterns = [
 
     # add project URL's here
     path('compbaseball/', include('webapp.apps.projects.compbaseball.urls')),
+    path('taxbrain/', include('webapp.apps.projects.taxbrain.urls')),
 
     # user/billing apps
     path('users/', include('webapp.apps.users.urls')),

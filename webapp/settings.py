@@ -50,6 +50,7 @@ INSTALLED_APPS = [
 
     # Append new apps here in the form webapp.apps.projects.{project_name}
     'webapp.apps.projects.compbaseball',
+    'webapp.apps.projects.taxbrain',
 
     'widget_tweaks',
     'crispy_forms',

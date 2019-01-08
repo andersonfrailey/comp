@@ -2,7 +2,7 @@ import time
 
 from api.celery_app import celery_app
 
-@celery_app.task(name='taxbrain_tasks.taxbrain_task', soft_time_limit=300)
+@celery_app.task(name='taxbrain_tasks.taxbrain_task', soft_time_limit=500)
 def taxbrain_task(start_year, data_source, use_full_sample, user_mods):
     start = time.time()
 

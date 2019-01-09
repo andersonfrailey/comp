@@ -11,6 +11,9 @@ RUN python --version
 RUN conda update conda
 RUN conda install -c anaconda --file conda-requirements.txt --yes
 RUN pip install -r requirements.txt
+COPY ./Tax-Calculator /home/distributed/Tax-Calculator/
+RUN cd /home/distributed/Tax-Calculator && pip install -e .
+
 
 # Add our code
 ADD ./webapp /opt/webapp/

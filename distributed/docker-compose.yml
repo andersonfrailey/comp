@@ -1,7 +1,7 @@
 version: '3'
 services:
   flask:
-    image: "comp/flask:${TAG}"
+    image: "comporg/flask:${TAG}"
     ports:
       - 5050:5050
     depends_on:
@@ -12,15 +12,15 @@ services:
       - taxbrain_tasks
   # configure celery workers:
   # {project_name}_tasks:
-  #   image: "comp/{project_name}_tasks:${TAG}"
+  #   image: "comporg/{project_name}_tasks:${TAG}"
   #   depends_on:
   #     redis
   compbaseball_tasks:
-    image: "comp/compbaseball_tasks:${TAG}"
+    image: "comporg/compbaseball_tasks:${TAG}"
     depends_on:
       - redis
   taxbrain_tasks:
-    image: "comp/taxbrain_tasks:${TAG}"
+    image: "comporg/taxbrain_tasks:${TAG}"
     depends_on:
       - redis
   redis:

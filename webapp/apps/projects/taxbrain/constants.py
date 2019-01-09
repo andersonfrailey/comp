@@ -12,7 +12,7 @@ APP_DESCRIPTION = APP_DESCRIPTION = mark_safe("""
     </p>
     <h4> Core Maintainers: </h4>
     <ul>
-        <li>Anderson Frailey</li>
+        <li>test app</li>
     </ul>
 </div>
 """)

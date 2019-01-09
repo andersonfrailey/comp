@@ -57,6 +57,7 @@ def test_meta_params():
 
 @pytest.mark.taxcalc
 def test_param_parser(mockparam):
+    from taxcalc.tbi import parse_user_inputs as _parse_user_inputs
 
     # set up test data and classes
     raw_meta_params = {"start_year": "2018", "data_source": "PUF",
@@ -71,6 +72,25 @@ def test_param_parser(mockparam):
 
     class MockParser(TaxcalcStyleParser):
         displayer_class = MockDisplayer
+
+        def parse_parameters(self):
+            """
+            example implementation
+            """
+            params, jsonparams, errors_warnings = super().parse_parameters()
+
+            def parse_user_inputs(params, jsonparams, errors_warnings,
+                                **valid_meta_params):
+                return _parse_user_inputs(
+                    params,
+                    jsonparams,
+                    errors_warnings,
+                    **self.valid_meta_params
+                )
+
+            return parse_user_inputs(params, jsonparams, errors_warnings,
+                                    **self.valid_meta_params)
+
 
     # test good data; make sure there are no warnings/errors
     parser = MockParser({"_STD_0": [10001], "_BE_sub": [0.2]},

@@ -1,0 +1,33 @@
+package:
+  name: taxcalc
+  version: 0.0.0
+
+build:
+  entry_points:
+    - tc = taxcalc.cli.tc:cli_tc_main
+
+requirements:
+  build:
+    - python=3.6
+    - "numpy>=1.13"
+    - "pandas>=0.22"
+    - "bokeh>=0.13"
+    - numba
+    - toolz
+
+  run:
+    - python=3.6
+    - "numpy>=1.13"
+    - "pandas>=0.22"
+    - "bokeh>=0.13"
+    - numba
+    - toolz
+
+test:
+  commands:
+    - which tc  # [unix]
+    - where tc  # [win]
+    - tc --help
+
+about:
+  home: https://github.com/open-source-economics/Tax-Calculator

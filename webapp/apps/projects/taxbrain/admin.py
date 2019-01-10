@@ -3,7 +3,7 @@ from django.contrib import admin
 
 # Register your models here.
 
-from .models import CompbaseballInputs, CompbaseballRun
+from .models import TaxbrainInputs, TaxbrainRun
 
-admin.site.register(CompbaseballInputs)
-admin.site.register(CompbaseballRun)
+admin.site.register(TaxbrainInputs)
+admin.site.register(TaxbrainRun)
